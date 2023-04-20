@@ -21,24 +21,32 @@ const reduceFn = <T>(
   callback: (accumulator: T, currentValue: T) => T,
   initialValue: T
 ) => {
+  let accumulator = initialValue;
   for (let i = 0; i < array.length; i++) {
-    initialValue += callback(accumulator, array[i]);
+    accumulator = callback(accumulator, array[i]);
   }
-  return initialValue;
+  return accumulator;
 };
 
 console.log(
-  reduceFn(data, (accumulator, currentValue) => accumulator + currentValue, 2)
+  reduceFn(data, (accumulator, currentValue) => accumulator * currentValue, 5)
 );
+
+const mapFn = <T>(array: T[], callback: (element: T) => T) => {
+  const emptyArray: T[] = [];
+  for (let i = 0; i < array.length; i++) {
+    emptyArray.push(callback(array[i]));
+  }
+  return emptyArray;
+};
+
+console.log(mapFn(data, (element) => element * 2));
+console.log(mapFn(data, (element) => Math.sqrt(element)));
 
 // const everyFn = (array, callback) => {};
 
 // const forEachFn = (array, callback) => {};
 
-// const mapFn = (array, callback) => {};
-
 // const filterFn = (array, callback) => {};
-
-// const reduceFn <T> = (array, callback, inital) => {};
 
 // const someFn = (array, callback) => {};
